@@ -1,27 +1,48 @@
-# FoodBaseClient
+📋 Task Management System — Frontend
+A responsive and interactive Task Management System built using Angular 18 and PrimeNG. This frontend application allows users to manage tasks with features such as status tracking, attachments, collaborators, comments, and task history.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+✨ Features
+✅ Add, edit, and delete tasks
 
-## Development server
+📌 Assign status: Pending, In Progress, Done
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+🗓️ Set due dates using calendar picker
 
-## Code scaffolding
+📎 Upload and manage file attachments
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+👥 Add collaborators to tasks
 
-## Build
+💬 Real-time comment system for task discussions
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+🕓 View activity history and status changes
 
-## Running unit tests
+📱 Responsive and mobile-friendly UI
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+🛠 Tech Stack
+Angular 18 (Standalone components)
 
-## Running end-to-end tests
+PrimeNG — UI components
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Bootstrap — Layout & utility classes
 
-## Further help
+RxJS — Reactive state handling
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+SCSS/CSS — Custom styles
+
+🚀 Getting Started
+📦 Prerequisites
+Node.js (>= 18.x)
+
+Angular CLI (>= 18.x)
+
+Installation.
+# Clone the repository
+git clone https://github.com/georgemathenge/task-manager-frontend.git
+cd task-manager-frontend
+
+# Install dependencies
+npm install
+
+
+![image](https://github.com/user-attachments/assets/6934d84f-329b-4819-b72f-4e807ffdefd6)
+
