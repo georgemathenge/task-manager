@@ -1,0 +1,34 @@
+@import "primeicons/primeicons.css";
+
+  /* Style the menu container */
+.p-menu {
+    background-color: #f3f1e4;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(186, 186, 167, 0.3);
+    min-width: 200px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Style each menu item */
+  .p-menuitem {
+    padding: 2px 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Style the clickable link inside each menu item */
+  .p-menuitem-link {
+    color: #6f4e37;
+    font-size: 14px;
+    text-decoration: none;
+    display: block; /* makes whole area clickable */
+  }
+  .menu-danger {
+    color: #e74c3c ;
+    font-weight: bold;
+  }
+  .menu-danger .p-menuitem-text:hover {
+    color: #e74c3c ;
+  }
+  
+ 
+  

@@ -1,0 +1,14 @@
+<header class="custom-header">
+  <div class="container">
+    <a class="logo" routerLink="/">Luxe</a>
+    <button class="nav-toggle" (click)="toggleMenu()">☰</button>
+    
+    <nav class="nav-menu" [class.open]="isMenuOpen">
+      <a routerLink="/" (click)="closeMenu()">Home</a>
+      <a routerLink="/view" (click)="closeMenu()">Hotel</a>
+      <a routerLink="/services" (click)="closeMenu()">Services</a>
+      <a routerLink="/contact" (click)="closeMenu()">Contact</a>
+    </nav>
+  </div>
+</header>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Food na Base</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/icons/favicon-96x96.png"
+    />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Stylesheets -->
+    <!-- Dropdown Menu -->
+    <!-- <link rel="stylesheet" href="assets/css/superfish.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <!-- CS Select -->
+    <!-- <link rel="stylesheet" href="assets/css/cs-select.css" /> -->
+    <!-- Icomoon -->
+    <!-- <link rel="stylesheet" href="assets/css/icomoon.css" /> -->
+
+    <!-- Modernizr JS -->
+    <!-- CS Select -->
+    <!-- Icomoon -->
+    <link rel="stylesheet" href="assets/css/icomoon.css" />
+
+    <!-- Modernizr JS -->
+    <script src="assets/js/modernizr-2.6.2.min.js"></script>
+    <script src="assets/js/jquery-2.1.4.min.js"></script>
+    <!-- Dropdown Menu -->
+    <script src="assets/js/hoverIntent.js"></script>
+    <script src="assets/js/superfish.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <!-- Counters -->
+    <script src="assets/js/jquery.countTo.js"></script>
+    <!-- Stellar Parallax -->
+    <script src="assets/js/jquery.stellar.min.js"></script>
+    <!-- Owl Slider -->
+    <!-- // <script src="js/owl.carousel.min.js"></script> -->
+    <!-- Date Picker -->
+    <script src="assets/js/bootstrap-datepicker.min.js"></script>
+    <!-- CS Select -->
+    <script src="assets/js/classie.js"></script>
+    <script src="assets/js/selectFx.js"></script>
+
+    <script>
+      window.global = window;
+    </script>
+    <script type="text/javascript" src="assets/config.js"></script>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+  </head>
+  <body>
+    <div id="loading-screen">
+      <img
+        src="/assets/icons/web-app-manifest-192x192.png"
+        alt="Foodbase Finder Logo"
+        class="loading-icon"
+      />
+      <h2>Loading Foodbase Finder...</h2>
+    </div>
+
+    <app-root></app-root>
+    <!-- Javascripts -->
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+  </body>
+  <style>
+    /* Loader styles */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+  
+    .loading-icon {
+      width: 100px; /* you can adjust */
+      height: 100px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+  
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</html>

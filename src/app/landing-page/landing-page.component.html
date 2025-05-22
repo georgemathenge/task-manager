@@ -1,0 +1,373 @@
+<div id="featured-hotel" class="fh5co-bg-color">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p-toast />
+        <!-- Header Section -->
+        <!-- <div
+          class="section-title d-flex justify-content-between align-items-center"
+          style="padding: 10px; background-color: aliceblue"
+        >
+          <h2 class="mb-0">Tasks</h2>
+          <button class="btn btn-lg btn-outline-primary" (click)="toggleForm()">
+            {{ showForm ? "Close" : "Add Task" }}
+          </button>
+        </div> -->
+
+        <div class="card mb-3">
+          <p-menubar>
+            <ng-template pTemplate="start">
+              <p-button
+                label=" Task"
+                icon="pi pi-plus"
+                class="text-white"
+                severity="success"
+                (onClick)="toggleForm()"
+              />
+            </ng-template>
+
+            <ng-template pTemplate="end">
+              <div class="flex items-center gap-2">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Search"
+                  class="w-96rem"
+                />
+              </div>
+            </ng-template>
+          </p-menubar>
+        </div>
+
+        <!-- Task Form -->
+
+        <p-dialog
+          header="Add Task"
+          [(visible)]="addFormvisible"
+          [modal]="true"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+          [style]="{ width: '50vw', height: 'auto' }"
+          [draggable]="false"
+          [resizable]="false"
+        >
+          <form (ngSubmit)="submitTask()" class="row g-3">
+            <!-- Task Title -->
+            <div class="col-md-6">
+              <label for="title" class="form-label fw-bold">Task Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                [(ngModel)]="task.title"
+                required
+              />
+            </div>
+
+            <!-- Due Date -->
+            <div class="col-md-6">
+              <label for="dueDate" class="form-label fw-bold">Due Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dueDate"
+                name="dueDate"
+                [(ngModel)]="task.dueDate"
+              />
+            </div>
+
+            <!-- Priority -->
+            <div class="col-md-6">
+              <label for="priority" class="form-label fw-bold">Priority</label>
+              <select
+                id="priority"
+                class="form-select"
+                name="priority"
+                [(ngModel)]="task.priority"
+              >
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-6">
+              <label for="status" class="form-label fw-bold">Status</label>
+              <select
+                id="status"
+                class="form-select"
+                name="status"
+                [(ngModel)]="task.status"
+              >
+                <option value="Not Started" selected>Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <!-- Assignee -->
+            <div class="col-md-6">
+              <label for="assignee" class="form-label fw-bold">Assignee</label>
+              <select
+                id="assignee"
+                class="form-select"
+                name="assignee"
+                [(ngModel)]="task.assignee"
+              >
+                <option *ngFor="let user of users" [value]="user">
+                  {{ user }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Tags / Labels -->
+            <div class="col-md-6">
+              <label for="tags" class="form-label fw-bold">Tags / Labels</label>
+              <input
+                type="text"
+                class="form-control"
+                id="tags"
+                name="tags"
+                placeholder="e.g. urgent, frontend, client"
+                [(ngModel)]="task.tags"
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-12">
+              <label for="description" class="form-label fw-bold"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="4"
+                [(ngModel)]="task.description"
+              ></textarea>
+            </div>
+
+            <!-- Attachments -->
+            <div class="col-md-12">
+              <label for="attachment" class="form-label fw-bold"
+                >Attachments</label
+              >
+              <!-- <input
+                type="file"
+                class="form-control"
+                id="attachment"
+                name="attachment"
+                (change)="onFileChange($event)"
+                multiple
+              /> -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary px-4">
+                Save Task
+              </button>
+            </div>
+          </form>
+        </p-dialog>
+        <p-dialog
+          header=" Task"
+          [(visible)]="visible"
+          [modal]="true"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+          [style]="{ width: '50vw', height: 'auto' }"
+          [draggable]="false"
+          [resizable]="false"
+        >
+          <p-tabView>
+            <p-tabPanel   header="Overview">
+              <form
+                [formGroup]="taskForm"
+                (ngSubmit)="editTask(taskForm)"
+                class="p-fluid form-layout"
+              >
+                <div class="p-field">
+                  <label for="title">Title</label>
+                  <input
+                    id="title"
+                    pInputText
+                    formControlName="title"
+                    placeholder="Enter task title"
+                  />
+                </div>
+
+                <div class="p-field">
+                  <label for="dueDate">Due Date</label>
+                  <p-calendar
+                    id="dueDate"
+                    formControlName="dueDate"
+                    dateFormat="yy-mm-dd"
+                    showIcon="true"
+                  ></p-calendar>
+                </div>
+
+                <div class="p-field">
+                  <label for="status">Status</label>
+                  <p-dropdown
+                    id="status"
+                    [options]="statusOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Select a status"
+                    formControlName="status"
+                  ></p-dropdown>
+                </div>
+                <div class="p-field">
+                  <label for="description">Collaborations</label>
+                  <p-multiSelect
+                    [options]="collaborators"
+                    optionLabel="name"
+                    formControlName="collaborations"
+                    [maxSelectedLabels]="3"
+                    styleClass="w-full md:w-80"
+                  >
+                  </p-multiSelect>
+                </div>
+
+                <div class="p-field">
+                  <label for="description">Description</label>
+                  <textarea
+                    id="description"
+                    pInputTextarea
+                    rows="4"
+                    formControlName="description"
+                    placeholder="Task details..."
+                  ></textarea>
+                </div>
+
+                <div class="p-dialog-footer" style="margin-top: 40px">
+                  <button
+                    pButton
+                    type="button"
+                    label="Cancel"
+                    (click)="visible = false"
+                    class="p-button-text"
+                  ></button>
+                  <button
+                    pButton
+                    type="submit"
+                    label="Save"
+                    (click)="submitTask()"
+                    [disabled]="taskForm.invalid"
+                  ></button>
+                </div>
+              </form>
+            </p-tabPanel>
+            <p-tabPanel header="Comments">
+              <div *ngFor="let comment of taskComments" class="comment-box mb-2 p-3 border rounded shadow-sm bg-white">
+                <div class="flex justify-between items-center mb-1">
+                  <strong>{{ comment.users.user_name }}</strong>
+                  <small class="text-muted">{{ comment.created_at | date: 'dd/MM/yyyy HH:mm' }}</small>
+                </div>
+                <div>{{ comment.description }}</div>
+              </div>
+              
+            </p-tabPanel>
+         
+            <p-tabPanel header="Attachments">
+              <!-- File upload and preview -->
+            </p-tabPanel>
+            <p-tabPanel  header="History">
+              <p-timeline [value]="events" [orientation]="'vertical'" >
+             
+                <ng-template let-event pTemplate="content">
+                 
+                </ng-template>
+                <ng-template pTemplate="content" let-event>
+                  <div class="event-content">
+                    <span class="event-description">{{ event.description }}</span>
+                  </div>
+              </ng-template>
+          
+              <ng-template pTemplate="opposite" let-event>
+                <span class="event-title">{{ event.time_stamp | date: 'dd/MM/yyyy HH:mm'  }}</span>
+
+              </ng-template>
+              </p-timeline>
+         
+            </p-tabPanel>
+          </p-tabView>
+        </p-dialog>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="feature-full-2col">
+        <div class="f-hotel" *ngFor="let task of tasks">
+          <div class="desc">
+            <div class="title-row mb-3">
+              <h3>
+                {{ task.title || "Untitled Task" }}
+                <span class="badges">
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'badge-green': task.status === 'done',
+                      'badge-red': task.status === 'pending',
+                      'badge-orange': task.status === 'in-progress'
+                    }"
+                  >
+                    {{ task.status }}
+                  </span>
+                </span>
+              </h3>
+              <div class="action-menu">
+                <i
+                  class="pi pi-ellipsis-v text-gray-600 hover:text-gray-800 cursor-pointer text-xl"
+                  style="font-size: 1.5rem"
+                  role="button"
+                  (click)="toggleMenu(task, menu, $event)"
+                ></i>
+
+                <p-menu
+                  #menu
+                  [popup]="true"
+                  [model]="menuItems"
+                  appendTo="body"
+                ></p-menu>
+              </div>
+            </div>
+
+            <p>
+              {{
+                task.description || "No description available."
+                  | limitWords : 15
+              }}
+            </p>
+
+            <div class="collab-avatars" *ngIf="task.collaborations?.length">
+              <span>Collaborators:</span>
+              <div class="avatar-list">
+                <div
+                  class="avatar-item"
+                  *ngFor="let collab of task.collaborations | slice : 0 : 3"
+                >
+                  <img
+                    [src]="'/assets/images/image-2.jpg'"
+                    [alt]="collab.users.user_name"
+                    class="avatar"
+                  />
+                  <span class="username">{{ collab.users.user_name }}</span>
+                </div>
+
+                <!-- Show "+N" if there are more than 3 -->
+                <div
+                  class="avatar-item extra"
+                  *ngIf="task.collaborations.length > 3"
+                >
+                  +{{ task.collaborations.length - 3 }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

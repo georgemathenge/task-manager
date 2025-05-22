@@ -1,0 +1,44 @@
+{
+  "name": "Foodbase Finder",
+  "short_name": "FoodBase",
+
+  "icons": [
+    {
+      "src": "/assets/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/web-app-manifest-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/homepage.png",
+      "sizes": "431x744",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/icons/homepage.png",
+      "sizes": "431x744",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Food na Base"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}

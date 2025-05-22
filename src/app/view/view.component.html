@@ -1,0 +1,281 @@
+<section
+  class="hero-section"
+  [ngStyle]="{ 'background-image': dynamicImageUrl ? 'url(' + dynamicImageUrl + ')' : 'url(assets/images/fallback.jpg)' }"
+>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" *ngIf="dynamicTitle || dynamicSubtitle; else loadingPlaceholder">
+    <h1 *ngIf="dynamicTitle">{{ dynamicTitle }}</h1>
+    <p *ngIf="dynamicSubtitle">{{ dynamicSubtitle }}</p>
+  </div>
+
+  <ng-template #loadingPlaceholder>
+    <div class="hero-content">
+      <div class="skeleton title-skeleton"></div>
+      <div class="skeleton subtitle-skeleton"></div>
+    </div>
+  </ng-template>
+</section>
+
+<div id="fh5co-services-section" *ngIf="foodShopDetails">
+  <div class="container">
+    <div class="row">
+      <!-- Image Column -->
+      <div class="col-md-6">
+        <img
+          loading="lazy"
+          fetchpriority="auto"
+          [src]="
+            foodShopDetails.photo_url
+              ? 'https://images.unsplash.com/' + foodShopDetails.photo_url
+              : 'https://via.placeholder.com/150'
+          "
+          class="img-responsive"
+          [alt]="foodShopDetails.name"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <!-- Restaurant Name & Description -->
+        <h3 class="heading">{{ foodShopDetails.name }}</h3>
+        <p>{{ foodShopDetails.description }}</p>
+
+        <!-- Tags/Badges -->
+        <div class="mb-3">
+          <span *ngFor="let tag of tags" class="badge bg-success me-2">
+            {{ tag }}
+          </span>
+        </div>
+
+        <!-- Service Hours -->
+        <p class="service-hour mb-1">
+          <strong>Service Hours:</strong> 7:30 AM - 8:00 PM
+        </p>
+
+        <!-- Address -->
+        <p class="mb-4">
+          <strong>Address:</strong> {{ foodShopDetails.address }}
+        </p>
+
+        <!-- Social Media Links -->
+        <div class="row g-2 mb-4">
+          <div
+            class="col-auto"
+            *ngFor="let social of foodShopDetails.social_media_link"
+          >
+            <a
+              [href]="social.url"
+              target="_blank"
+              class="btn btn-outline-primary btn-sm"
+              rel="noopener noreferrer"
+            >
+              <i [ngClass]="getSocialIcon(social.social_name)" class="me-1"></i>
+              {{ social.social_name }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Share Buttons -->
+        <div class="row g-2">
+          <div class="col-auto">
+            <a
+              [href]="
+                'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl
+              "
+              target="_blank"
+              class="btn btn-primary btn-sm"
+            >
+              <i class="bi bi-facebook me-1"></i> Share
+            </a>
+          </div>
+          <div class="col-auto">
+            <a
+              [href]="
+                'https://twitter.com/intent/tweet?url=' +
+                shareUrl +
+                '&text=' +
+                getEncodedUrl(shareText)
+              "
+              target="_blank"
+              class="btn btn-info btn-sm text-white"
+            >
+              <i class="bi bi-twitter-x me-1"></i> Tweet
+            </a>
+          </div>
+          <div class="col-auto">
+            <a
+              [href]="
+                'https://www.linkedin.com/shareArticle?mini=true&url=' +
+                shareUrl +
+                '&title=' +
+                getEncodedUrl(shareText)
+              "
+              target="_blank"
+              class="btn btn-secondary btn-sm"
+            >
+              <i class="bi bi-linkedin me-1"></i> LinkedIn
+            </a>
+          </div>
+          <div class="col-auto">
+            <a
+              [href]="
+                'https://api.whatsapp.com/send?text=' +
+                getEncodedUrl(shareText) +
+                '%0A' +
+                getEncodedUrl(shareUrl)
+              "
+              target="_blank"
+              class="btn btn-success me-2"
+            >
+              <i class="bi bi-whatsapp me-1"></i> Share on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Section -->
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h4>Customer Reviews</h4>
+        <div class="row text-center align-items-center">
+          <div class="col-md-6">
+            <p *ngIf="foodShopDetails.reviews?.length">
+              <strong>Total Reviews</strong><br />
+              {{ foodShopDetails.reviews.length }}
+            </p>
+          </div>
+
+          <div class="col-md-6 border-start border-end">
+            <p>
+              <strong>Average Rating</strong><br />
+              <span *ngIf="foodShopDetails.avg_rating" class="text-warning">
+                ⭐️ {{ foodShopDetails.avg_rating }}/5
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="reviews" *ngIf="foodShopDetails.reviews?.length">
+          <div class="review" *ngFor="let review of getReviews()">
+            <strong>User ID: {{ review.user_id }}</strong>
+            <p>"{{ review.comment }}" - ⭐️{{ review.rating }}</p>
+          </div>
+        </div>
+        <button
+          *ngIf="foodShopDetails.reviews.length > reviewsToShow"
+          (click)="toggleReviews()"
+          class="btn btn-primary"
+        >
+          {{ showAllReviews ? "Show Less" : "Show More" }}
+        </button>
+      </div>
+
+      <div class="col-md-6">
+        <h4>Find Us</h4>
+        <iframe
+          *ngIf="mapUrl"
+          [src]="mapUrl"
+          width="100%"
+          height="300"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Leave a Review Form   -->
+    <div class="row mt-4" hidden>
+      <div class="col-md-6">
+        <h5>Leave a Review</h5>
+        <form id="review-form">
+          <div class="form-group">
+            <label for="reviewer-name">Your Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="reviewer-name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="review-rating">Rating</label>
+            <select class="form-control" id="review-rating" required>
+              <option value="">Select a rating</option>
+              <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+              <option value="4">⭐⭐⭐⭐ - Very Good</option>
+              <option value="3">⭐⭐⭐ - Good</option>
+              <option value="2">⭐⭐ - Fair</option>
+              <option value="1">⭐ - Poor</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="review-message">Your Review</label>
+            <textarea
+              class="form-control"
+              id="review-message"
+              rows="3"
+              placeholder="Share your experience..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-success">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery section remains unchanged -->
+
+<!-- Gallery -->
+<div id="fh5co-blog-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title text-center">
+          <h2>Gallery</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="blog-grid"
+          style="background-image: url(assets/images/image-1.jpg)"
+        >
+          <div class="date text-center">
+            <span>09</span>
+            <small>Aug</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="blog-grid"
+          style="background-image: url(assets/images/image-2.jpg)"
+        >
+          <div class="date text-center">
+            <span>09</span>
+            <small>Aug</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="blog-grid"
+          style="background-image: url(assets/images/image-3.jpg)"
+        >
+          <div class="date text-center">
+            <span>09</span>
+            <small>Aug</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
