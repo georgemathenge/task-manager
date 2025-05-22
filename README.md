@@ -43,6 +43,9 @@ cd task-manager-frontend
 # Install dependencies
 npm install
 
+Screenshots
 
 ![image](https://github.com/user-attachments/assets/6934d84f-329b-4819-b72f-4e807ffdefd6)
+![image](https://github.com/user-attachments/assets/44fe6602-d2e8-406e-ab1f-1d88951d0f68)
+
 
